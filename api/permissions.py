@@ -11,7 +11,7 @@ class IsStaffOrReadOnly(BasePermission):
         return bool(
             request.method in SAFE_METHODS or
             request.user and
-            request.user.is_authenticated
+            request.user.is_staff
         )
 
 
@@ -35,7 +35,7 @@ class IsSuperuserOrStaffReadOnly(BasePermission):
        return bool(
         #get access to authors read only not change
         request.method in SAFE_METHODS and
-        request.user.is_authenticated and
+        request.user and
         request.user.is_staff or
         #get access to superuser full
         request.user or
